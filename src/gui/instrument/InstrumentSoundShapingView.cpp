@@ -39,6 +39,13 @@
 namespace lmms::gui
 {
 
+/**
+ * Constructs an InstrumentSoundShapingView widget with the given parent widget.
+ *
+ * @param parent The parent widget for this widget.
+ *
+ * @throws None
+ */
 InstrumentSoundShapingView::InstrumentSoundShapingView(QWidget* parent) :
 	QWidget(parent),
 	ModelView(nullptr, this)
@@ -91,14 +98,22 @@ InstrumentSoundShapingView::InstrumentSoundShapingView(QWidget* parent) :
 
 
 
-
+/**
+ * Destructor for the InstrumentSoundShapingView class.
+ * 
+ * Frees up memory allocated by the m_targetsTabWidget object.
+ */
 InstrumentSoundShapingView::~InstrumentSoundShapingView()
 {
 	delete m_targetsTabWidget;
 }
 
 
-
+/**
+ * Sets the visibility of the functions in the InstrumentSoundShapingView.
+ *
+ * @param hidden true if the functions should be hidden, false otherwise
+ */
 void InstrumentSoundShapingView::setFunctionsHidden( bool hidden )
 {
 	m_targetsTabWidget->setHidden( hidden );
@@ -107,7 +122,16 @@ void InstrumentSoundShapingView::setFunctionsHidden( bool hidden )
 }
 
 
-
+/**
+ * Updates the model of the InstrumentSoundShapingView.
+ *
+ * This function is called when the model of the InstrumentSoundShapingView
+ * changes. It updates the model of the view by setting the appropriate
+ * models for the filter group box, filter combo box, filter cut knob,
+ * filter res knob, and the environment and LFO views.
+ *
+ * @throws None
+ */
 void InstrumentSoundShapingView::modelChanged()
 {
 	m_ss = castModel<InstrumentSoundShaping>();

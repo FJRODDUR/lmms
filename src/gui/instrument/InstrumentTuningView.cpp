@@ -43,7 +43,14 @@
 namespace lmms::gui
 {
 
-
+/**
+ * Constructs an InstrumentTuningView object.
+ *
+ * @param it pointer to the InstrumentTrack object
+ * @param parent pointer to the parent QWidget object
+ *
+ * @throws None
+ */
 InstrumentTuningView::InstrumentTuningView(InstrumentTrack *it, QWidget *parent) :
 	QWidget(parent)
 {

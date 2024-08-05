@@ -32,6 +32,14 @@
 namespace lmms::gui
 {
 
+/**
+ * Constructs an InstrumentView object with the given Instrument and parent widget.
+ *
+ * @param _Instrument A pointer to the Instrument object.
+ * @param _parent A pointer to the parent widget.
+ *
+ * @throws None
+ */
 InstrumentView::InstrumentView( Instrument * _Instrument, QWidget * _parent ) :
 	PluginView( _Instrument, _parent )
 {
@@ -41,7 +49,14 @@ InstrumentView::InstrumentView( Instrument * _Instrument, QWidget * _parent ) :
 
 
 
-
+/**
+ * Destructor for the InstrumentView class.
+ *
+ * This function releases the memory allocated for the instrumentTrackWindow
+ * object by setting the m_instrumentView pointer to nullptr.
+ *
+ * @throws None
+ */
 InstrumentView::~InstrumentView()
 {
 	if( instrumentTrackWindow() )
@@ -52,7 +67,16 @@ InstrumentView::~InstrumentView()
 
 
 
-
+/**
+ * Sets the model for the InstrumentView.
+ *
+ * @param _model The model to be set.
+ * @param unused A boolean parameter that is not used in the function.
+ *
+ * @return None
+ *
+ * @throws None
+ */
 void InstrumentView::setModel( Model * _model, bool )
 {
 	if( dynamic_cast<Instrument *>( _model ) != nullptr )
@@ -65,7 +89,12 @@ void InstrumentView::setModel( Model * _model, bool )
 
 
 
-
+/**
+ * Returns a pointer to the InstrumentTrackWindow object that is the parent of the
+ * parent widget of this InstrumentView object.
+ *
+ * @return A pointer to the InstrumentTrackWindow object.
+ */
 InstrumentTrackWindow * InstrumentView::instrumentTrackWindow()
 {
 	return( dynamic_cast<InstrumentTrackWindow *>(

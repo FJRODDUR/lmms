@@ -42,6 +42,11 @@ extern const float SECS_PER_LFO_OSCILLATION;
 namespace gui
 {
 
+/**
+ * Constructor for the LfoGraph class.
+ *
+ * @param parent The parent QWidget.
+ */
 LfoGraph::LfoGraph(QWidget* parent) :
 	QWidget(parent),
 	ModelView(nullptr, this)
@@ -49,6 +54,13 @@ LfoGraph::LfoGraph(QWidget* parent) :
 	setMinimumSize(m_lfoGraph.size());
 }
 
+/**
+ * Handles the mouse press event for the LfoGraph.
+ *
+ * @param me A pointer to the QMouseEvent object representing the mouse press event.
+ *
+ * @throws None
+ */
 void LfoGraph::mousePressEvent(QMouseEvent* me)
 {
 	if (me->button() == Qt::LeftButton)
@@ -57,6 +69,13 @@ void LfoGraph::mousePressEvent(QMouseEvent* me)
 	}
 }
 
+/**
+ * Paints the LfoGraph widget.
+ *
+ * @param event A pointer to the QPaintEvent object representing the paint event.
+ *
+ * @throws None
+ */
 void LfoGraph::paintEvent(QPaintEvent*)
 {
 	QPainter p{this};
@@ -154,6 +173,13 @@ void LfoGraph::paintEvent(QPaintEvent*)
 	drawInfoText(*params);
 }
 
+/**
+ * Draws information text on the LfoGraph widget.
+ *
+ * @param params The EnvelopeAndLfoParameters object containing the parameters for the LFO.
+ *
+ * @throws None
+ */
 void LfoGraph::drawInfoText(const EnvelopeAndLfoParameters& params)
 {
 	QPainter p(this);
@@ -184,6 +210,13 @@ void LfoGraph::drawInfoText(const EnvelopeAndLfoParameters& params)
 	p.drawText(textPosition, infoText);
 }
 
+/**
+ * Toggles the value of the LFO amount model between 0.0 and 1.0.
+ *
+ * @return None
+ *
+ * @throws None
+ */
 void LfoGraph::toggleAmountModel()
 {
 	auto* params = castModel<EnvelopeAndLfoParameters>();

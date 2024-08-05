@@ -76,7 +76,15 @@ const int INSTRUMENT_WIDTH	= 254;
 const int INSTRUMENT_HEIGHT	= INSTRUMENT_WIDTH;
 const int PIANO_HEIGHT		= 80;
 
-
+/**
+ * Constructs an InstrumentTrackWindow object.
+ *
+ * @param _itv pointer to the InstrumentTrackView object associated with this window
+ *
+ * @return none
+ *
+ * @throws none
+ */
 InstrumentTrackWindow::InstrumentTrackWindow( InstrumentTrackView * _itv ) :
 	QWidget(),
 	ModelView( nullptr, this ),
@@ -302,7 +310,13 @@ InstrumentTrackWindow::InstrumentTrackWindow( InstrumentTrackView * _itv ) :
 
 
 
-
+/**
+ * Destructor for the InstrumentTrackWindow class.
+ *
+ * This destructor deletes the m_instrumentView object and hides and deletes the parent widget if it exists.
+ *
+ * @throws None
+ */
 InstrumentTrackWindow::~InstrumentTrackWindow()
 {
 	delete m_instrumentView;
@@ -316,7 +330,13 @@ InstrumentTrackWindow::~InstrumentTrackWindow()
 
 
 
-
+/**
+ * Sets the InstrumentTrackView for the InstrumentTrackWindow.
+ *
+ * @param view The InstrumentTrackView to set.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::setInstrumentTrackView( InstrumentTrackView* view )
 {
 	if( m_itv && view )
@@ -330,7 +350,15 @@ void InstrumentTrackWindow::setInstrumentTrackView( InstrumentTrackView* view )
 
 
 
-
+/**
+ * Updates the model of the InstrumentTrackWindow based on the changes in the InstrumentTrack.
+ *
+ * @param None
+ *
+ * @return None
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::modelChanged()
 {
 	m_track = castModel<InstrumentTrack>();
@@ -395,7 +423,11 @@ void InstrumentTrackWindow::modelChanged()
 
 
 
-
+/**
+ * Saves the settings of the instrument track to an XML preset file.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::saveSettingsBtnClicked()
 {
 	FileDialog sfd(this, tr("Save preset"), "", tr("XML preset file (*.xpf)"));
@@ -438,7 +470,11 @@ void InstrumentTrackWindow::saveSettingsBtnClicked()
 
 
 
-
+/**
+ * Updates the name of the InstrumentTrackWindow.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::updateName()
 {
 	setWindowTitle( m_track->name().length() > 25 ? ( m_track->name().left(24)+"..." ) : m_track->name() );
@@ -452,7 +488,23 @@ void InstrumentTrackWindow::updateName()
 
 
 
-
+/**
+ * Updates the instrument view in the InstrumentTrackWindow.
+ *
+ * This function deletes the current instrument view and creates a new one using the createView() method of the instrument.
+ * The new view is then added as a tab to the tab widget with the label "Plugin" and the identifier "plugin_tab".
+ * The tab widget is set to the first tab.
+ *
+ * The function also updates the visibility of the single-streamed view based on whether the instrument is single-streamed or not.
+ * It calls the modelChanged() method to refresh the instrument window and the dataChanged() method to update the text on the track button.
+ *
+ * The function adjusts the size of the tab to fit the instrument view using the adjustTabSize() method.
+ * It also sets the visibility of the piano view based on whether the instrument has note input or not.
+ *
+ * Finally, the function adjusts the size of the window and its parent widget to fit the new size, and updates the window and the instrument view.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::updateInstrumentView()
 {
 	delete m_instrumentView;
@@ -483,7 +535,13 @@ void InstrumentTrackWindow::updateInstrumentView()
 
 
 
-
+/**
+ * Updates the name of the instrument track and marks the song as modified.
+ *
+ * @param newName The new name for the instrument track.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::textChanged( const QString& newName )
 {
 	m_track->setName( newName );
@@ -492,7 +550,13 @@ void InstrumentTrackWindow::textChanged( const QString& newName )
 
 
 
-
+/**
+ * Toggles the visibility of the InstrumentTrackWindow and its parent widget.
+ *
+ * @param on A boolean indicating whether to show or hide the window and its parent.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::toggleVisibility( bool on )
 {
 	if( on )
@@ -509,7 +573,13 @@ void InstrumentTrackWindow::toggleVisibility( bool on )
 
 
 
-
+/**
+ * Handles the close event for the InstrumentTrackWindow.
+ *
+ * @param event A pointer to the QCloseEvent object.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::closeEvent( QCloseEvent* event )
 {
 	event->ignore();
@@ -529,7 +599,13 @@ void InstrumentTrackWindow::closeEvent( QCloseEvent* event )
 
 
 
-
+/**
+ * Handles the focus in event for the InstrumentTrackWindow.
+ *
+ * @param event A pointer to the QFocusEvent object.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::focusInEvent( QFocusEvent* )
 {
 	if(m_pianoView->isVisible()) {
@@ -539,7 +615,13 @@ void InstrumentTrackWindow::focusInEvent( QFocusEvent* )
 
 
 
-
+/**
+ * Processes a drag enter event for a generic instrument track window.
+ *
+ * @param event A pointer to the QDragEnterEvent object.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::dragEnterEventGeneric( QDragEnterEvent* event )
 {
 	StringPairDrag::processDragEnterEvent( event, "instrument,presetfile,pluginpresetfile" );
@@ -547,7 +629,11 @@ void InstrumentTrackWindow::dragEnterEventGeneric( QDragEnterEvent* event )
 
 
 
-
+/**
+ * Handles the drag enter event for the InstrumentTrackWindow.
+ *
+ * @param event The QDragEnterEvent object representing the drag enter event.
+ */
 void InstrumentTrackWindow::dragEnterEvent( QDragEnterEvent* event )
 {
 	dragEnterEventGeneric( event );
@@ -555,7 +641,13 @@ void InstrumentTrackWindow::dragEnterEvent( QDragEnterEvent* event )
 
 
 
-
+/**
+ * Handles the drop event for the InstrumentTrackWindow class.
+ *
+ * @param event The QDropEvent object representing the drop event.
+ *
+ * @throws None.
+ */
 void InstrumentTrackWindow::dropEvent( QDropEvent* event )
 {
 	QString type = StringPairDrag::decodeKey( event );
@@ -598,7 +690,14 @@ void InstrumentTrackWindow::dropEvent( QDropEvent* event )
 
 
 
-
+/**
+ * Saves the settings of the InstrumentTrackWindow to a QDomDocument.
+ *
+ * @param doc the QDomDocument to save the settings to
+ * @param thisElement the QDomElement representing the InstrumentTrackWindow in the document
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::saveSettings( QDomDocument& doc, QDomElement & thisElement )
 {
 	thisElement.setAttribute( "tab", m_tabWidget->activeTab() );
@@ -607,7 +706,13 @@ void InstrumentTrackWindow::saveSettings( QDomDocument& doc, QDomElement & thisE
 
 
 
-
+/**
+ * Loads the settings of the InstrumentTrackWindow from a DOMElement.
+ *
+ * @param thisElement The DOMElement containing the settings to load.
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::loadSettings( const QDomElement& thisElement )
 {
 	m_tabWidget->setActiveTab( thisElement.attribute( "tab" ).toInt() );
@@ -618,6 +723,15 @@ void InstrumentTrackWindow::loadSettings( const QDomElement& thisElement )
 	}
 }
 
+/**
+ * A helper routine for viewing the next or previous instrument track.
+ *
+ * @param d -1 to view the previous instrument, +1 to view the next instrument
+ *
+ * @return None
+ *
+ * @throws None
+ */
 void InstrumentTrackWindow::viewInstrumentInDirection(int d)
 {
 	// helper routine for viewNextInstrument, viewPrevInstrument
@@ -671,15 +785,39 @@ void InstrumentTrackWindow::viewInstrumentInDirection(int d)
 	bringToFront->getInstrumentTrackWindow()->setFocus();
 }
 
+/**
+ * Views the next instrument in the direction of the positive integer.
+ *
+ * @return void
+ */
 void InstrumentTrackWindow::viewNextInstrument()
 {
 	viewInstrumentInDirection(+1);
 }
+
+/**
+ * Views the previous instrument in the direction of the negative integer.
+ *
+ * @param None.
+ *
+ * @return void
+ *
+ * @throws None.
+ */
 void InstrumentTrackWindow::viewPrevInstrument()
 {
 	viewInstrumentInDirection(-1);
 }
 
+/**
+ * Adjusts the minimum size of a given widget to fit within an instrument track window.
+ *
+ * @param w The widget to be resized.
+ *
+ * @return None.
+ *
+ * @throws None.
+ */
 void InstrumentTrackWindow::adjustTabSize(QWidget *w)
 {
 	// "-1" :

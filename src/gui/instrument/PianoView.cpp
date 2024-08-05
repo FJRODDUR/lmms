@@ -121,6 +121,14 @@ PianoView::PianoView(QWidget *parent) :
 	connect(Engine::getSong(), SIGNAL(keymapListChanged(int)), this, SLOT(update()));
 }
 
+/**
+ * Returns the offset of the key from the given key event.
+ *
+ * @param _ke The key event from which to calculate the offset.
+ *
+ * @return The offset of the key from the given key event. Returns -100 if the
+ *         key is not recognized.
+ */
 static int getKeyOffsetFromKeyEvent( QKeyEvent * _ke )
 {
 	// TODO: check the scan codes for ',' = c, 'L' = c#, '.' = d, ':' = d#,
@@ -675,7 +683,15 @@ void PianoView::focusOutEvent( QFocusEvent * )
 	update();
 }
 
-
+/**
+ * Handles the focus in event for the PianoView.
+ *
+ * @param event The QFocusEvent object.
+ *
+ * @return void
+ *
+ * @throws None
+ */
 void PianoView::focusInEvent( QFocusEvent * )
 {
 	m_piano->instrumentTrack()->autoAssignMidiDevice(true);

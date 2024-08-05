@@ -38,6 +38,15 @@
 namespace lmms::gui
 {
 
+/**
+ * Constructs an InstrumentFunctionNoteStackingView object with the given
+ * InstrumentFunctionNoteStacking pointer and parent widget.
+ *
+ * @param cc Pointer to an InstrumentFunctionNoteStacking object.
+ * @param parent Pointer to the parent widget.
+ *
+ * @throws None.
+ */
 InstrumentFunctionNoteStackingView::InstrumentFunctionNoteStackingView( InstrumentFunctionNoteStacking* cc, QWidget* parent ) :
 	QWidget( parent ),
 	ModelView( nullptr, this ),
@@ -69,7 +78,15 @@ InstrumentFunctionNoteStackingView::InstrumentFunctionNoteStackingView( Instrume
 
 
 
-
+/**
+ * Destructor for the InstrumentFunctionNoteStackingView class.
+ *
+ * This function is responsible for deallocating the memory allocated for the
+ * m_chordsGroupBox member variable. It is called when an instance of the
+ * InstrumentFunctionNoteStackingView class is destroyed.
+ *
+ * @throws None.
+ */
 InstrumentFunctionNoteStackingView::~InstrumentFunctionNoteStackingView()
 {
 	delete m_chordsGroupBox;
@@ -77,7 +94,16 @@ InstrumentFunctionNoteStackingView::~InstrumentFunctionNoteStackingView()
 
 
 
-
+/**
+ * Updates the view's models when the underlying data model changes.
+ *
+ * This function is called when the data model associated with this view is modified.
+ * It updates the models for the chords group box, chords combo box, and chord range knob.
+ *
+ * @return None
+ *
+ * @throws None
+ */
 void InstrumentFunctionNoteStackingView::modelChanged()
 {
 	m_cc = castModel<InstrumentFunctionNoteStacking>();
@@ -91,7 +117,16 @@ void InstrumentFunctionNoteStackingView::modelChanged()
 
 
 
-
+/**
+ * Constructs an InstrumentFunctionArpeggioView object with the given arpeggio and parent widget.
+ *
+ * @param arp A pointer to an InstrumentFunctionArpeggio object.
+ * @param parent A pointer to a QWidget object.
+ *
+ * @return None.
+ *
+ * @throws None.
+ */
 InstrumentFunctionArpeggioView::InstrumentFunctionArpeggioView( InstrumentFunctionArpeggio* arp, QWidget* parent ) :
 	QWidget( parent ),
 	ModelView( nullptr, this ),
@@ -176,7 +211,13 @@ InstrumentFunctionArpeggioView::InstrumentFunctionArpeggioView( InstrumentFuncti
 
 
 
-
+/**
+ * Destructor for the InstrumentFunctionArpeggioView class.
+ *
+ * This destructor is responsible for deallocating the memory allocated for the m_arpGroupBox member variable.
+ *
+ * @throws None.
+ */
 InstrumentFunctionArpeggioView::~InstrumentFunctionArpeggioView()
 {
 	delete m_arpGroupBox;
@@ -184,7 +225,10 @@ InstrumentFunctionArpeggioView::~InstrumentFunctionArpeggioView()
 
 
 
-
+/**
+ * Updates the models of the various UI elements in the InstrumentFunctionArpeggioView
+ * class with the corresponding models from the InstrumentFunctionArpeggio model.
+ */
 void InstrumentFunctionArpeggioView::modelChanged()
 {
 	m_a = castModel<InstrumentFunctionArpeggio>();

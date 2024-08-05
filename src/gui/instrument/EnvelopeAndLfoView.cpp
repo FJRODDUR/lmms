@@ -64,6 +64,12 @@ EnvelopeAndLfoView::EnvelopeAndLfoView(QWidget * parent) :
 		return knob;
 	};
 
+	/*
+	 * This lambda function is used to build a PixmapButton in a consistent manner.
+	 * It takes two string views representing the names of the active and inactive pixmaps.
+	 * It creates a new PixmapButton, sets the active and inactive pixmaps using the embed::getIconPixmap function
+	 * and returns the created button.
+	 */
 	auto buildPixmapButton = [&](std::string_view activePixmap, std::string_view inactivePixmap)
 	{
 		auto button = new PixmapButton(this, nullptr);
@@ -201,6 +207,13 @@ EnvelopeAndLfoView::~EnvelopeAndLfoView()
 
 
 
+/**
+ * Destructor for the EnvelopeAndLfoView class.
+ *
+ * This function is called when an instance of the EnvelopeAndLfoView class is
+ * destroyed. It frees the memory allocated for the m_lfoWaveBtnGrp member
+ * variable.
+ */
 void EnvelopeAndLfoView::modelChanged()
 {
 	m_params = castModel<EnvelopeAndLfoParameters>();
@@ -225,7 +238,13 @@ void EnvelopeAndLfoView::modelChanged()
 
 
 
-
+/**
+ * Handles the drag enter event for the EnvelopeAndLfoView class.
+ *
+ * @param _dee A pointer to the QDragEnterEvent object representing the drag enter event.
+ *
+ * @throws None
+ */
 void EnvelopeAndLfoView::dragEnterEvent( QDragEnterEvent * _dee )
 {
 	StringPairDrag::processDragEnterEvent( _dee,
@@ -235,7 +254,13 @@ void EnvelopeAndLfoView::dragEnterEvent( QDragEnterEvent * _dee )
 
 
 
-
+/**
+ * Handles the drop event for the EnvelopeAndLfoView class.
+ *
+ * @param _de A pointer to the QDropEvent object representing the drop event.
+ *
+ * @throws None
+ */
 void EnvelopeAndLfoView::dropEvent( QDropEvent * _de )
 {
 	QString type = StringPairDrag::decodeKey( _de );
@@ -264,7 +289,11 @@ void EnvelopeAndLfoView::dropEvent( QDropEvent * _de )
 
 
 
-
+/**
+ * Handles the change event for the user wave of the LFO.
+ *
+ * @throws None
+ */
 void EnvelopeAndLfoView::lfoUserWaveChanged()
 {
 	if( static_cast<EnvelopeAndLfoParameters::LfoShape>(m_params->m_lfoWaveModel.value()) ==

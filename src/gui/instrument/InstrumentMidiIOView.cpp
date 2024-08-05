@@ -40,7 +40,13 @@
 namespace lmms::gui
 {
 
-
+/**
+ * Constructs an InstrumentMidiIOView object.
+ *
+ * @param parent The parent widget of the InstrumentMidiIOView.
+ *
+ * @throws None.
+ */
 InstrumentMidiIOView::InstrumentMidiIOView( QWidget* parent ) :
 	QWidget( parent ),
 	ModelView( nullptr, this ),
@@ -163,7 +169,22 @@ InstrumentMidiIOView::InstrumentMidiIOView( QWidget* parent ) :
 
 
 
-
+/**
+ * Updates the model of the InstrumentMidiIOView.
+ *
+ * This function updates the model of the InstrumentMidiIOView by setting the model of various
+ * widgets such as m_midiInputGroupBox, m_inputChannelSpinBox, m_fixedInputVelocitySpinBox,
+ * m_midiOutputGroupBox, m_outputChannelSpinBox, m_fixedOutputVelocitySpinBox,
+ * m_fixedOutputNoteSpinBox, m_outputProgramSpinBox, and m_baseVelocitySpinBox.
+ *
+ * The model is obtained from the castModel<MidiPort>() function and is used to set the model
+ * of the widgets.
+ *
+ * If m_rpBtn and m_wpBtn are not null, their menus are also updated with the readable and
+ * writable ports menus from the MidiPort model.
+ *
+ * @throws None
+ */
 void InstrumentMidiIOView::modelChanged()
 {
 	auto mp = castModel<MidiPort>();

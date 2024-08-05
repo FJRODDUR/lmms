@@ -42,6 +42,13 @@ namespace lmms
 namespace gui
 {
 
+/**
+ * Constructs an EnvelopeGraph widget with the given parent widget.
+ *
+ * @param parent The parent widget for this widget.
+ *
+ * @throws None
+ */
 EnvelopeGraph::EnvelopeGraph(QWidget* parent) :
 	QWidget(parent),
 	ModelView(nullptr, this)
@@ -49,16 +56,38 @@ EnvelopeGraph::EnvelopeGraph(QWidget* parent) :
 	setMinimumSize(m_envGraph.size());
 }
 
+/**
+ * Updates the `m_params` member variable with the latest instance of the `EnvelopeAndLfoParameters` model.
+ *
+ * @return void
+ *
+ * @throws None
+ */
 void EnvelopeGraph::modelChanged()
 {
 	m_params = castModel<EnvelopeAndLfoParameters>();
 }
 
+/**
+ * Handles the mouse press event. If the left mouse button is clicked, it calls the
+ * `toggleAmountModel()` function.
+ *
+ * @param me pointer to the mouse event
+ *
+ * @throws None
+ */
 void EnvelopeGraph::mousePressEvent(QMouseEvent* me)
 {
 	if (me->button() == Qt::LeftButton) { toggleAmountModel(); }
 }
 
+/**
+ * Handles the context menu event for the EnvelopeGraph.
+ *
+ * @param event The QContextMenuEvent object representing the event.
+ *
+ * @throws None
+ */
 void EnvelopeGraph::contextMenuEvent(QContextMenuEvent* event)
 {
 	QMenu menu(this);
@@ -98,6 +127,15 @@ void EnvelopeGraph::contextMenuEvent(QContextMenuEvent* event)
     menu.exec(event->globalPos());
 }
 
+/**
+ * Handles the painting of the EnvelopeGraph widget based on the envelope parameters.
+ *
+ * @param event The QPaintEvent object representing the event triggering the paint.
+ *
+ * @return None
+ *
+ * @throws None
+ */
 void EnvelopeGraph::paintEvent(QPaintEvent*)
 {
 	QPainter p{this};
@@ -130,7 +168,7 @@ void EnvelopeGraph::paintEvent(QPaintEvent*)
 	const float release = params->getReleaseModel().value();
 	const float releasePercentage = release / params->getReleaseModel().maxValue();
 
-	// The margin to the left and right so that we do not clip too much of the lines and markers
+	// The margin to the left and right so that we do not clip too much of the lines and markers.
 	const float margin = 2.0;
 	const float availableWidth = width() - margin * 2;
 
@@ -248,6 +286,11 @@ void EnvelopeGraph::paintEvent(QPaintEvent*)
 	drawMarker(releasePoint);
 }
 
+/**
+ * Toggles the amount model of the envelope graph between 0.0 and 1.0.
+ *
+ * @return None
+ */
 void EnvelopeGraph::toggleAmountModel()
 {
 	auto* params = castModel<EnvelopeAndLfoParameters>();
